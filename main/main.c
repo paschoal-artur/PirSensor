@@ -25,35 +25,38 @@ void init_gpio(void)
     //!Buzzer pin configuration
     esp_rom_gpio_pad_select_gpio(BUZZER_GPIO);
     gpio_set_direction(BUZZER_GPIO, GPIO_MODE_OUTPUT);
+
 }
 
 void pir_sensor_task(void *pvParameters)
 {
     bool mudou = false;
     double start_time = 0;
-    double end_time = 0;
+    int anterior = 0;
     while(1)
     {
         int read_pir_state = gpio_get_level(PIR_SENSOR_GPIO); 
-        printf("%d\n",read_pir_state);
-        //! Check if PIR state has changed
-        if ((read_pir_state != 0) && (!mudou)){
-            mudou = true;
-            start_time =  (double) esp_timer_get_time()/1000;
-        }
-        else end_time = (double) esp_timer_get_time()/1000;
+        double current_time = (double) esp_timer_get_time() / 1000;
 
-        if(end_time - start_time > 2*1000){
-            gpio_set_level(LED_GPIO, 1);
-            gpio_set_level(BUZZER_GPIO, 1);
-            vTaskDelay(pdMS_TO_TICKS(1000));
-            gpio_set_level(BUZZER_GPIO, 0);
-            start_time =  (double) esp_timer_get_time()/1000;
+        if ((read_pir_state != 0) && (read_pir_state != anterior) )
+        {
+            if (!mudou){
+                mudou = true;
+                start_time =  current_time;
+                gpio_set_level(LED_GPIO, 1);
+                gpio_set_level(BUZZER_GPIO, 1); 
+            }
+            start_time = current_time;
+        }
+
+        if(mudou && (current_time - start_time > 1000)){
             gpio_set_level(LED_GPIO, 0);
+            gpio_set_level(BUZZER_GPIO, 0);
+            mudou = false;
         }
 
-        //last_pir_state = read_pir_state; //! Update the last PIR state for the next loop iteration
-        vTaskDelay(pdMS_TO_TICKS(50)); //! Short delay to prevent excessive CPU usage, adjust as needed
+        vTaskDelay(pdMS_TO_TICKS(50));
+        anterior = read_pir_state;
     }
 }
 

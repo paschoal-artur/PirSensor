@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "presence_sensor",
-    "project_version":    "679040c-dirty",
+    "project_version":    "3e6afdf-dirty",
     "project_path":       "/home/arturpaschoal/PirSensor",
     "idf_path":           "/home/arturpaschoal/esp/v5.2/esp-idf",
     "build_dir":          "/home/arturpaschoal/PirSensor/build",
