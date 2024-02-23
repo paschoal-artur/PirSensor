@@ -1,4 +1,4 @@
-/* * Data converted from /home/arturpaschoal/presence_sensor/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/arturpaschoal/PirSensor/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

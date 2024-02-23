@@ -1,4 +1,4 @@
-# Install script for directory: /home/arturpaschoal/presence_sensor/main
+# Install script for directory: /home/arturpaschoal/PirSensor/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

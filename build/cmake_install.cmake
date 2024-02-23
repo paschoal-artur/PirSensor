@@ -1,4 +1,4 @@
-# Install script for directory: /home/arturpaschoal/presence_sensor
+# Install script for directory: /home/arturpaschoal/PirSensor
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/arturpaschoal/presence_sensor/build/esp-idf/cmake_install.cmake")
+  include("/home/arturpaschoal/PirSensor/build/esp-idf/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/arturpaschoal/presence_sensor/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/arturpaschoal/PirSensor/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
