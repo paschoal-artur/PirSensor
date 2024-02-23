@@ -6,6 +6,7 @@
 
 #define PIR_SENSOR_GPIO GPIO_NUM_4
 #define LED_GPIO GPIO_NUM_2
+#define BUZZER_GPIO GPIO_NUM_18
 
 void init_gpio(void)
 {
@@ -18,6 +19,10 @@ void init_gpio(void)
     //!LED pin configuration
     esp_rom_gpio_pad_select_gpio(LED_GPIO);
     gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
+
+    //!Buzzer pin configuration
+    esp_rom_gpio_pad_select_gpio(BUZZER_GPIO);
+    gpio_set_direction(BUZZER_GPIO, OUTPUT);
 }
 
 void pir_sensor_task(void *pvParameters)
@@ -39,14 +44,17 @@ void pir_sensor_task(void *pvParameters)
         if ((xTaskGetTickCount() - last_debounce_time) > debounce_time) {
 
             if (current_pir_state != read_pir_state) {
+
                 current_pir_state = read_pir_state; //! Update the stable PIR state
 
                 if (current_pir_state) {
                     printf("Motion detected, turning LED on\n");
                     gpio_set_level(LED_GPIO, 1); 
+                    gpio_set_level(BUZZER_GPIO, 1);
                 } else {
-                    printf("No motion detected. LED off\n");
-                    gpio_set_level(LED_GPIO, 0); 
+                    printf("No motion detected. LED and buzzer off\n");
+                    gpio_set_level(LED_GPIO, 0);
+                    gpio_set_level(BUZZER_GPIO, 0); 
                 }
             }
         }
