@@ -37,7 +37,7 @@ void pir_sensor_task(void *pvParameters)
     {
         int read_pir_state = gpio_get_level(PIR_SENSOR_GPIO); 
         double current_time = (double) esp_timer_get_time() / 1000;
-
+        printf("%d\n", read_pir_state);
         if ((read_pir_state != 0) && (read_pir_state != anterior) )
         {
             if (!mudou){
